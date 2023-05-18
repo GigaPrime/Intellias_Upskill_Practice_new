@@ -3,8 +3,6 @@
 #include <memory>
 #include <string>
 
-//Add wrapper around imagePath as a proxy
-
 namespace Internal
 {
 	class Image

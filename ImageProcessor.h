@@ -10,16 +10,13 @@ class ImageProcessor final
 public:
 	const std::unique_ptr<ImageProcessor> GetInstance();
 
-	ResultOutput processTask(const std::string& imagePath, const std::vector<std::string>& operations);
+	//Here the Task is created and passed to the WorkerPool. Result is created and returned back;
+	std::unique_ptr<Internal::Result> processTask(const std::string& imagePath, const std::vector<std::string>& operations);
 
 private:
 	ImageProcessor() {};
 
-	void instantiateTaskBuilde();
-	void instantiateWorkerPool();
-
 	const std::unique_ptr<ImageProcessor> imageProcessor = std::make_unique<ImageProcessor>();
-	std::unique_ptr<Internal::TaskBuilder> taskBuilder = nullptr;
-	std::unique_ptr<Internal::WorkerPool> workerPool = nullptr;
-	std::unique_ptr<Internal::PlugInManager> plugInManager = nullptr;
+	const std::unique_ptr<Internal::WorkerPool> workerPool = std::make_unique<Internal::WorkerPool>();
+	const std::unique_ptr<Internal::PlugInManager> plugInManager = std::make_unique<Internal::PlugInManager>();
 };

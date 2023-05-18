@@ -5,29 +5,27 @@
 
 #include "Image.h"
 #include "Operation.h"
-#include "PlugInManager.h"
 #include "Result.h"
 
 namespace Internal
 {
-	class Task
+	class Task final
 	{
 	public:
-		static Task createTask(const std::unique_ptr<Image> image, const std::vector<Operation>& operatoins);
-		const std::vector<std::shared_ptr<Operation>> getOperationList() const;
+		// TaskBuilder call here
+		static std::unique_ptr<Task> createTask(const std::string& imagePath, const std::vector<std::string>& operations); 
+		const std::vector<std::unique_ptr<Operation>> getOperationList() const;
 		const std::unique_ptr<Image> getImage() const;
 		const std::string getTaskPriority() const;
 
 	private:
 		Task() {};
 		
-		void setOperations();
 		void defineTaskPriority();
 
 		std::unique_ptr<Image> image;
-		std::vector<std::shared_ptr<Operation>> operations;
+		std::vector<std::unique_ptr<Operation>> operations;
 		std::string taskPriority;
-		std::future<Result> result;
+		std::promise<Result> result;
 	};
 }
-
