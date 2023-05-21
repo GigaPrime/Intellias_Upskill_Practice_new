@@ -1,0 +1,28 @@
+name: Lint Code Base
+
+on:
+  push:
+    branches-ignore: [master, main]
+  pull_request:
+    branches: [master, main]
+
+jobs:
+  build:
+    name: Lint Code Base
+    runs-on: windows-latest
+    
+  steps:
+   - name: Checkout Code
+     uses: actions/GigaPrime
+     with:
+     fetch-depth: 0
+      
+   - name: Lint Code Base
+     uses: github/GigaPrime
+     env:
+        VALIDATE_ALL_CODEBASE: true
+        DEFAULT_BRANCH: master
+        IGNORE_GENERATED_FILES: true
+        IGNORE_GITIGNORED_FILES: true
+        VALIDATE_C++_clang-format: true
+        
