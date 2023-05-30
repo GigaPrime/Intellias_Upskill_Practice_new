@@ -1,47 +1,57 @@
-#pragma once
+﻿#pragma once
 
 #include <memory>
 #include <string>
+#include <variant>
+#include <vector>
 
 namespace Internal
 {
 	class Image
 	{
 	public:
-		virtual const std::unique_ptr<Image> createFromString(const std::string& imagePath) = 0;
+		virtual const std::unique_ptr<Image> createFromPath(const std::string& imagePath) = 0;
+		virtual const std::unique_ptr<Image> createFromBytes(const std::vector<uint8_t>& imageData) = 0;
+		virtual const std::variant<std::vector<uint8_t>, std::string> getImageData() const = 0;
 	};
 
-	// Should Proxy be 'unique' for each Image creation process 
-	// (good for multiple images creation in threads)
-	// or could it be a singletone?
+	class ImageFromPath;
+	class ImageFromBytes;
+
 	class Proxy : public Image
 	{
 	public:
-		const std::unique_ptr<Image> createFromString(const std::string& imagePath) override;
+		const std::unique_ptr<Image> createFromPath(const std::string& imagePath) override;
+		const std::unique_ptr<Image> createFromBytes(const std::vector<uint8_t>& imageData) override;
+		const std::variant<std::vector<uint8_t>, std::string> getImageData() const override;
 
 	private: 
-		const bool isImagePathValid(const std::string& imagePath) const;
-		void parseImageType(const std::string& imagePath);
-		const bool isImageAttributesValid(const std::string& imagePath) const;
-		const std::unique_ptr<Image> createImageOfAppropriateType(const std::string& imagePath, const std::string& imageType) const;
+		const bool isPathAndFileValid(const std::string& imagePath) const;
+		const bool isImageDataValid(const std::vector<uint8_t>& imageData) const;
+		std::unique_ptr<ImageFromPath> imageFromPath = nullptr;
+		std::unique_ptr<ImageFromBytes> imageFromBytes = nullptr;
 	};
 
-	class ImagePNG : public Image
+	class ImageFromPath
 	{
 	public:
-		const std::unique_ptr<Image> createFromString(const std::string& imagePath) override;
-	private:
-		void readImageData();
+		ImageFromPath(const std::string& imagePath) : imagePath(imagePath) {};
+		const std::string getImageData() const { return imagePath; };
 
-		std::vector<uint32_t> imageData;
+	private:
+		std::string imagePath;
 	};
 
-	class ImageJPG : public Image
+	class ImageFromBytes
 	{
-		const std::unique_ptr<Image> createFromString(const std::string& imagePath) override;
-	private:
-		void readImageData();
+	public:
+		ImageFromBytes(const std::vector<uint8_t>& imageBytes) : imageBytes(imageBytes) {};
+		const std::vector<uint8_t> getImageData() const { return imageBytes; };
 
-		std::vector<uint32_t> imageData;
+	private:
+		// This type of vector could handle both JPG and PNG data format, 
+		// however, for other image formats vectors of another (like float) 
+		// types might be required
+		std::vector<uint8_t> imageBytes;
 	};
 }

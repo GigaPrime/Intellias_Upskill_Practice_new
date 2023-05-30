@@ -8,7 +8,7 @@
 class ImageProcessor final
 {
 public:
-	const std::unique_ptr<ImageProcessor> GetInstance();
+	const std::unique_ptr<ImageProcessor> GetInstance(); // get raw pointer from unique_ptr via static or via other method
 
 	//Here the Task is created and passed to the WorkerPool. Result is created and returned back;
 	std::unique_ptr<Internal::Result> processTask(const std::string& imagePath, const std::vector<std::string>& operations);

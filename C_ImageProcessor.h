@@ -6,6 +6,11 @@
 #include "ImageProcessor.h"
 
 typedef struct ResultOutput Result;
+// typedef pointer Result Result to the Result struct
+// and method destroyResult
+// result isSuccess
+// result waitForImage
+// result ...
 
 struct ResultOutput 
 {
@@ -21,3 +26,7 @@ ResultOutput* processTask(const char* imagePath, const char** operations)
     result->success = success;
     return result;
 }
+
+// separate to h and cpp files + forward declaration
+// destroyResult function (new/delete)
+// Result has std::future inside with the picture itself

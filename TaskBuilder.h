@@ -18,5 +18,7 @@ namespace Internal
 		// std::string PlugIn::getPlugInName() should return exactly the same name as the 
 		// operation string obtained as a parametr 
 		const std::vector<std::unique_ptr<Operation>> createOperations(const std::vector<std::string>& operations) const;
+
+		const std::vector<std::string> operations = { "" };
 	};
 }
