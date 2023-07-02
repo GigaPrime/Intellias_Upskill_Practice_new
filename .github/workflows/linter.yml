@@ -2,11 +2,9 @@ name: Github PRs CI
 
 on:
   push:
-    branches: [master]
     paths: 
       - 'Intellias_Upskill_Practice_new/**'
   pull_request:
-    branches: [master]
     paths: 
       - 'Intellias_Upskill_Practice_new/**'
 
