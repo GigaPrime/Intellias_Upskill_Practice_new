@@ -21,4 +21,9 @@ namespace Internal
 
 		const std::vector<std::string> operations = { "" };
 	};
+
+
+	// Check if there is no cyclic depencdency
+	// Operation creates itself
+	// Operation adds itself to the list(vector) of operations
 }
