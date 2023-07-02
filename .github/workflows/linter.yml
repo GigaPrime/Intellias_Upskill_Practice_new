@@ -1,9 +1,6 @@
 name: Github PRs CI
 
 on:
-  push:
-    paths: 
-      - 'Intellias_Upskill_Practice_new/**'
   pull_request:
     paths: 
       - 'Intellias_Upskill_Practice_new/**'
