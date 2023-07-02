@@ -2,6 +2,7 @@ name: Github PRs CI
 
 on:
   pull_request:
+    types: opened
     paths: 
       - 'Intellias_Upskill_Practice_new/**'
 
@@ -14,6 +15,8 @@ jobs:
       - uses: cpp-linter/cpp-linter-action@v2
         id: linter
         env:
+          continue-on-error: true
+          files-changed-only: false
           VALIDATE_ALL_CODEBASE: true
           DEFAULT_BRANCH: master
           IGNORE_GENERATED_FILES: true 
@@ -21,6 +24,8 @@ jobs:
           VALIDATE_C++_clang-format: true
         with:
           style: file
+          fetch-depth: 0
+          
           
       - name: Fail fast?!
         if: steps.linter.outputs.checks-failed > 0
