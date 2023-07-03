@@ -1,15 +1,6 @@
 name: Github PRs CI
 
-on:
-  push:
-    branches:
-    - master
-    paths: 
-    - 'Intellias_Upskill_Practice_new/**'
-  pull_request:
-    types: opened
-    paths: 
-      - 'Intellias_Upskill_Practice_new/**'
+on: workflow_dispatch
 
 jobs:
  build:
