@@ -7,7 +7,6 @@ on:
     paths: 
     - 'Intellias_Upskill_Practice_new/**'
   pull_request:
-    types: opened
     paths: 
       - 'Intellias_Upskill_Practice_new/**'
 
