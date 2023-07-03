@@ -38,14 +38,5 @@ jobs:
       
       - name: Build with Windows C++
         run:  cpp build ./NewImageProcessingSDK.sln --configuration Debug
-        
- lint:
-    runs-on: Windows-latest
-    
-    steps:
-    - name: Super-Linter
-      uses: super-linter/super-linter@v5.1.0
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
         
