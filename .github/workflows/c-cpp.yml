@@ -1,33 +1,22 @@
 name: Github PRs CI
 
-on: workflow_dispatch
+on: pull_request
 
 jobs:
- build:
-    runs-on: Ubuntu-latest
- 
+  cpp-linter:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: cpp-linter/cpp-linter-action@v2
         id: linter
         env:
-          continue-on-error: true
-          files-changed-only: false
-          VALIDATE_ALL_CODEBASE: true
-          DEFAULT_BRANCH: master
-          IGNORE_GENERATED_FILES: true 
-          IGNORE_GITIGNORED_FILES: true
-          VALIDATE_C++_clang-format: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           style: file
-          fetch-depth: 0
-          
-          
+
       - name: Fail fast?!
         if: steps.linter.outputs.checks-failed > 0
         run: echo "Some files failed the linting checks!"
-      
-      - name: Build with Windows C++
-        run:  cpp build ./NewImageProcessingSDK.sln --configuration Debug
-      
+        # for actual deployment
+        # run: exit 1
         
