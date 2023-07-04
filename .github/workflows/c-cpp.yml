@@ -19,4 +19,3 @@ jobs:
         run: echo "Some files failed the linting checks!"
         # for actual deployment
         # run: exit 1
-        
