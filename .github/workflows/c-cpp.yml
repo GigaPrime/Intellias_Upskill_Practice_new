@@ -3,24 +3,7 @@ name: Github PRs CI
 on: pull_request
 
 jobs:
-  build:
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: cpp-linter/cpp-linter-action@v2
-        id: linter
-        env:
-          continue-on-error: true
-          files-changed-only: false
-          VALIDATE_ALL_CODEBASE: true
-          DEFAULT_BRANCH: master
-          IGNORE_GENERATED_FILES: true 
-          IGNORE_GITIGNORED_FILES: true
-          VALIDATE_C++_clang-format: true
-        with:
-          style: file
-          fetch-depth: 0
-          
+      
   cpp-linter:
     runs-on: windows-latest
     steps:
@@ -30,10 +13,21 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          extensions: 'c,h,C,H,cpp,hpp,cc,hh,c++,h++,cxx,hxx'
+          tidy-checks: ''
+          continue-on-error: true
+          files-changed-only: false
+          VALIDATE_ALL_CODEBASE: true
+          DEFAULT_BRANCH: master
+          IGNORE_GENERATED_FILES: true 
+          IGNORE_GITIGNORED_FILES: true
+          VALIDATE_C++_clang-format: true
           style: file
+          fetch-depth: 0
 
       - name: Fail fast?!
         if: steps.linter.outputs.checks-failed > 0
         run: echo "Some files failed the linting checks!"
         # for actual deployment
         # run: exit 1
+        
