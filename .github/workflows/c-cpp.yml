@@ -13,17 +13,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          style: file
           extensions: 'c,h,C,H,cpp,hpp,cc,hh,c++,h++,cxx,hxx'
           tidy-checks: ''
-          continue-on-error: true
+          repo-root: ''
+          verbosity: 10
           files-changed-only: false
-          VALIDATE_ALL_CODEBASE: true
-          DEFAULT_BRANCH: master
-          IGNORE_GENERATED_FILES: true 
-          IGNORE_GITIGNORED_FILES: true
-          VALIDATE_C++_clang-format: true
-          style: file
-          fetch-depth: 0
+          lines-changed-only: false
+          ignore: true
 
       - name: Fail fast?!
         if: steps.linter.outputs.checks-failed > 0
