@@ -37,11 +37,3 @@ jobs:
         run: echo "Some files failed the linting checks!"
         # for actual deployment
         # run: exit 1
-
-  lint:
-    runs-on: Windows-latest
-    steps:
-    - name: Super-Linter
-      uses: super-linter/super-linter@v5.1.0
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
