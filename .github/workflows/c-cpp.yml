@@ -17,6 +17,7 @@ jobs:
           extensions: 'c,h,C,H,cpp,hpp,cc,hh,c++,h++,cxx,hxx'
           tidy-checks: ''
           repo-root: ''
+          verbosity: 10
           files-changed-only: false
           lines-changed-only: false
           ignore: true
